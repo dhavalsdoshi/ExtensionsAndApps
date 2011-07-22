@@ -1,0 +1,13 @@
+{
+	"name": "Visual Event",
+	"version": "1.0",
+	"description": "Know what event is bounded on each dom element",
+  "background_page": "background.html",
+  "permissions": [
+    "tabs", "http://*/*"
+  ],
+  "browser_action": {
+      "default_title": "Click to see the javascript events attached on this page",
+			"default_icon": "icon.png"
+  }
+}

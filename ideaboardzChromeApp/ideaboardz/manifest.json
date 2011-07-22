@@ -1,0 +1,13 @@
+{
+  "name": "IdeaBoardz",
+  "version": "1.0",
+  "app": {
+    "urls": ["*://www.ideaboardz.com/"],
+    "launch": {
+      "web_url": "http://www.ideaboardz.com/"
+    }
+  },
+	"icons": {
+		"128":"icon_128.png"
+	}
+}
