@@ -92,3 +92,8 @@ body {
 	padding: 0px 10px;
 	border-left: 1px solid #777;
 }
+
+#loadingMessage{
+	background: yellow;
+	color: #00AA88;
+}

@@ -1,6 +1,11 @@
 $(document).ready(function() {
     var lines;
-    jQuery.get("data/data.csv", function(data) { 
+//	$('#loadingMessage').show();
+    jQuery.ajax({ 
+	  url : "data/data.csv", 
+	  
+	  success: function(data) { 
+		$('#loadingMessage').hide();
 		lines = jQuery.csv()(data);
 		$(lines).each(function(index, line){
 			var word = line[0];
@@ -11,6 +16,7 @@ $(document).ready(function() {
 						sentence+"</div></li>").appendTo("#wordsList")
 		});
 		$('#search').keyup();
+	  }
 	});
 
 	var filterWordsBy = function(text){
