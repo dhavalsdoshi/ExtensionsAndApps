@@ -1,0 +1,14 @@
+{
+	"name": "Words and math",
+	"version": "1.0",
+	"description": "Wordlists and math tables for prep for any exams like gre, cat, gmat, cet",
+  "app": {
+	    "launch": {
+	      "local_path": "index.html"
+	    }
+	  },
+	"icons": {
+    "16": "icon.png",
+    "128": "icon.png"
+  }
+}

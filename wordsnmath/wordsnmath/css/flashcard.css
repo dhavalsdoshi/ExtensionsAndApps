@@ -1,0 +1,94 @@
+h2 {
+   font-size: 1.8em;
+   font-weight: bold;
+}
+
+h1,h2,h3,h4{
+	text-align: center;
+}
+
+h4{
+	font-size:1.2em;
+}
+
+body {
+	font-family: Comic Sans MS,cursive;
+	
+}
+
+.hide{
+    display:none;
+}
+
+.main_wrap {
+	margin:0 auto;
+    padding: 50px 5px 0;
+    width:990px;
+}
+
+#card div{
+    margin-top: 10px;
+}
+.word{
+	font-size: 1.75em;
+}
+
+.card{
+	background-color: #6D1D7C;
+	border : 1px solid #7E2E8D;
+    cursor: pointer;
+	width:450px;
+	height:250px;
+    text-align:center;
+    padding: 10px;
+    vertical-align: middle;
+    display: table-cell;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-border-radius: 4px 4px 15px 4px;
+    -moz-border-radius: 4px 4px 15px 4px;
+    -webkit-box-shadow: 2px 2px 0px 0px #888;
+    -moz-box-shadow: 5px 5px 0px 0px #888;
+	color: white;
+}
+
+.bluecard{
+	background-color: #ccffff;
+}
+
+.yellowcard{
+	background-color: #ffff88;
+}
+
+.greencard{
+	background-color: #88dd00;
+}
+
+#wordsList li{
+	font-size: 0.8em;
+	border: 1px solid #aaaaaa;
+	padding: 5px 10px;
+	background: -moz-linear-gradient(top,  #aaa,  #ccc);
+	background: -webkit-gradient(linear, left top, left bottom, from(#aaa), to(#ccc));
+}
+#letterLinks a{
+	margin-right: 5px;
+	color: blue;
+}
+
+#letterLinks a:visited;{
+	color: blue;
+}
+
+#wordsList span.word{
+	margin-right: 10px;
+} 
+
+.header{
+	font-size: 0.9em;
+	background: #DDDDDD;
+}
+.header a{
+	padding: 0px 10px;
+	border-left: 1px solid #777;
+}
