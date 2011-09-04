@@ -1,11 +1,10 @@
 $(document).ready(function() {
     var lines;
-//	$('#loadingMessage').show();
     jQuery.ajax({ 
 	  url : "data/data.csv", 
 	  
 	  success: function(data) { 
-		$('#loadingMessage').hide();
+		$('#loadingMessage').hide('slow');
 		lines = jQuery.csv()(data);
 		$(lines).each(function(index, line){
 			var word = line[0];

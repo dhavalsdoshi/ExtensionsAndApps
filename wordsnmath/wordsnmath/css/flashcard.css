@@ -86,11 +86,25 @@ body {
 
 .header{
 	font-size: 0.9em;
-	background: #DDDDDD;
+	width: 100%;
+	overflow: auto;
+	background: -moz-linear-gradient(top,  #ffffff,  #eeeeff);
+	background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#eeeeff));
+	border: 1px solid #dddddd;
 }
+.header a:hover{
+	background: -moz-linear-gradient(top,  #eeeeff,  #ffffff);
+	background: -webkit-gradient(linear, left top, left bottom, from(#eeeeff), to(#ffffff));
+	text-decoration: underline;
+}
+
+
 .header a{
-	padding: 0px 10px;
-	border-left: 1px solid #777;
+	padding: 5px 10px;
+	margin: 0;
+	font-size: 0.9em;
+	float: left;
+	text-decoration: none;
 }
 
 #loadingMessage{
