@@ -19,15 +19,16 @@ $(document).ready(function() {
 
 
 
-    var flipCard = function(){
+    var flipCard = function(event){
         $("#card").flip({
             direction:'tb',
-            content: getNextContent(),
+            content: getNextContent(event.data.randomness),
             color: '#6D1D7C'
         });
     };
 
-    $('#card').click(flipCard);
+    $('#card').bind("click",{randomness:true},flipCard);
+    $('#nextInSequence').bind("click",{randomness:false},flipCard);
 
     var lines;
     $.get("data/data.csv", function(data) { lines = jQuery.csv()(data);});
@@ -40,27 +41,35 @@ $(document).ready(function() {
     var currentLinePosition=-1;
     var alreadyShownLines = new Array();
 
-    var getNextContent= function(){
+    var getNextContent= function(randomness){
         if(lines[currentLine][wordCol]==$('#card').text()){
             var line = lines[currentLine];
             return '<div class="word">'+lines[currentLine][wordCol]+"</div><div>Meaning: "+line[meaningCol]+"</div><div>Sentence: "+line[sentenceCol]+"</div>";//+ "<div>Antonyms: "+line[antonymCol];
         }
         else{
             if(currentLinePosition!=alreadyShownLines.length-1){
-
                 currentLine= alreadyShownLines[currentLinePosition+1];
                 currentLinePosition=  currentLinePosition+1;
             }
             else{
-                currentLine = getNextRandomLine();
+                if(randomness){
+                    currentLine = getNextRandomLine();
+                }
+                else{
+                    currentLine = getNextLine();
+                }
                 alreadyShownLines.push(currentLine);
                 currentLinePosition=alreadyShownLines.length-1;
             }
-            if(alreadyShownLines.length==lines.length){
+            if(allWordsAreAlreadyShown()){
                 alreadyShownLines =  new Array();
             }
             return '<div class="word">'+lines[currentLine][wordCol]+'</div>';
         }
+    };
+
+    var allWordsAreAlreadyShown = function(){
+        return alreadyShownLines.length==lines.length;
     };
 
     var getPreviousContent= function(){
@@ -85,5 +94,8 @@ $(document).ready(function() {
         else
             return getNextRandomLine();
     };
-    
+
+    var getNextLine = function(){
+        return ((currentLine + 1) % lines.length);
+    }
 });
