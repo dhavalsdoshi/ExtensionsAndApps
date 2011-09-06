@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    var alphabet = getParameterByName("alphabet");
+    var startString = getParameterByName("startString");
 
     $(document).keydown(function (evt) {
         if (evt.keyCode == 38||evt.keyCode == 39) {
@@ -19,33 +19,33 @@ $(document).ready(function() {
     };
 
 
-    var flipCard = function(event){
+    var flipCard = function(){
         $("#card").flip({
             direction:'tb',
-            content: getNextContent(event.data.randomness),
+            content: getNextContent(),
             color: '#6D1D7C'
         });
     };
 
-    $('#card').bind("click",{randomness:true},flipCard);
+    $('#card').bind("click",flipCard);
 
     var lines;
     var onSuccess = function(data) {
         lines = jQuery.csv()(data);
         var newLines = new Array();
-        if (alphabet != null) {
-            function getSubsetOfWordsWith(alphabet, lines) {
+        if (startString != null) {
+            function getSubsetOfWordsWith(substring, lines) {
                 newLines[0] = lines[0];
                 var j=1;
                 for (i = 1; i < lines.length; i++) {
-                    if (lines[i][0].substring(0, 1) === alphabet) {
+                    if (lines[i][0].substring(0, substring.length) === substring) {
                         newLines[j] = lines[i];
+                        j++;
                     }
-                    j++;
                 }
                 return newLines
             }
-            lines = getSubsetOfWordsWith(alphabet, lines);
+            lines = getSubsetOfWordsWith(startString, lines);
         }
     }
     $.get("data/data.csv", onSuccess);
@@ -107,12 +107,12 @@ $(document).ready(function() {
             return getNextRandomLine();
     };
 
-    var getNextLine = function(){
+    var getNextLine = function() {
         return ((currentLine + 1) % lines.length);
-    }
+    };
 
     function getParameterByName(name) {
         var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
         return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
-    }
+    };
 });

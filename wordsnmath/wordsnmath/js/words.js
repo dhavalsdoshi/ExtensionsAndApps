@@ -32,5 +32,6 @@ $(document).ready(function() {
 	$('#search').keyup(function(){
 		var text = $(this).val();
 		filterWordsBy(text);
+        $('#modeSwitcher').attr('href',"index.html?startString=" +text);
 	});
 });
