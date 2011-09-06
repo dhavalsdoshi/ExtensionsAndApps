@@ -1,11 +1,12 @@
 $(document).ready(function() {
+    var alphabet = getParameterByName("alphabet");
 
     $(document).keydown(function (evt) {
         if (evt.keyCode == 38||evt.keyCode == 39) {
             flipCard();
         }
 		if (evt.keyCode == 37||evt.keyCode == 40) {
-            revertCard()
+            revertCard();
         }
     });
 
@@ -18,7 +19,6 @@ $(document).ready(function() {
     };
 
 
-
     var flipCard = function(event){
         $("#card").flip({
             direction:'tb',
@@ -28,13 +28,30 @@ $(document).ready(function() {
     };
 
     $('#card').bind("click",{randomness:true},flipCard);
-    $('#nextInSequence').bind("click",{randomness:false},flipCard);
 
     var lines;
-    $.get("data/data.csv", function(data) { lines = jQuery.csv()(data);});
-
+    var onSuccess = function(data) {
+        lines = jQuery.csv()(data);
+        var newLines = new Array();
+        if (alphabet != null) {
+            function getSubsetOfWordsWith(alphabet, lines) {
+                newLines[0] = lines[0];
+                var j=1;
+                for (i = 1; i < lines.length; i++) {
+                    if (lines[i][0].substring(0, 1) === alphabet) {
+                        newLines[j] = lines[i];
+                    }
+                    j++;
+                }
+                return newLines
+            }
+            lines = getSubsetOfWordsWith(alphabet, lines);
+        }
+    }
+    $.get("data/data.csv", onSuccess);
     var wordCol = 0;
     var meaningCol = 1;
+
     var sentenceCol = 2;
 //    var antonymCol = 3;
     var currentLine = 1;
@@ -52,12 +69,7 @@ $(document).ready(function() {
                 currentLinePosition=  currentLinePosition+1;
             }
             else{
-                if(randomness){
-                    currentLine = getNextRandomLine();
-                }
-                else{
-                    currentLine = getNextLine();
-                }
+                currentLine = getNextRandomLine();
                 alreadyShownLines.push(currentLine);
                 currentLinePosition=alreadyShownLines.length-1;
             }
@@ -97,5 +109,10 @@ $(document).ready(function() {
 
     var getNextLine = function(){
         return ((currentLine + 1) % lines.length);
+    }
+
+    function getParameterByName(name) {
+        var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+        return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
     }
 });
