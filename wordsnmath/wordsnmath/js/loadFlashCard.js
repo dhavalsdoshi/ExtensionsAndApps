@@ -1,6 +1,13 @@
 $(document).ready(function() {
     var startString = getParameterByName("startString");
-
+    var randomness = getParameterByName("randomness");
+    var startWord = getParameterByName("startWord");
+    if(randomness == null){
+        randomness = false;
+    }
+    if(startWord == null){
+        startWord ="";
+    }
     $(document).keydown(function (evt) {
         if (evt.keyCode == 38||evt.keyCode == 39) {
             flipCard();
@@ -33,17 +40,22 @@ $(document).ready(function() {
     var onSuccess = function(data) {
         lines = jQuery.csv()(data);
         var newLines = new Array();
+        var startFiltering = (startWord == "");
         if (startString != null) {
             function getSubsetOfWordsWith(substring, lines) {
-                newLines[0] = lines[0];
-                var j=1;
-                for (i = 1; i < lines.length; i++) {
+                var j=0;
+                for (i = 0; i < lines.length; i++) {
                     if (lines[i][0].substring(0, substring.length) === substring) {
-                        newLines[j] = lines[i];
-                        j++;
+                        if(lines[i][0] == startWord){
+                            startFiltering = true;
+                        }
+                        if(startFiltering){
+                            newLines[j] = lines[i];
+                            j++;
+                        }
                     }
                 }
-                return newLines
+                return newLines;
             }
             lines = getSubsetOfWordsWith(startString, lines);
         }
@@ -58,7 +70,7 @@ $(document).ready(function() {
     var currentLinePosition=-1;
     var alreadyShownLines = new Array();
 
-    var getNextContent= function(randomness){
+    var getNextContent= function(){
         if(lines[currentLine][wordCol]==$('#card').text()){
             var line = lines[currentLine];
             return '<div class="word">'+lines[currentLine][wordCol]+"</div><div>Meaning: "+line[meaningCol]+"</div><div>Sentence: "+line[sentenceCol]+"</div>";//+ "<div>Antonyms: "+line[antonymCol];
@@ -69,7 +81,12 @@ $(document).ready(function() {
                 currentLinePosition=  currentLinePosition+1;
             }
             else{
-                currentLine = getNextRandomLine();
+                if(randomness){
+                    currentLine = getNextRandomLine();
+                }
+                else{
+                    currentLine = getNextLine();
+                }
                 alreadyShownLines.push(currentLine);
                 currentLinePosition=alreadyShownLines.length-1;
             }
@@ -114,5 +131,5 @@ $(document).ready(function() {
     function getParameterByName(name) {
         var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
         return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
-    };
+    }
 });
