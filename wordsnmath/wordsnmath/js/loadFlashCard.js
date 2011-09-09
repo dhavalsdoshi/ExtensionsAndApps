@@ -1,13 +1,7 @@
 $(document).ready(function() {
     var startString = getParameterByName("startString");
-    var randomness = getParameterByName("randomness");
-    var startWord = getParameterByName("startWord");
-    if(randomness == null){
-        randomness = false;
-    }
-    if(startWord == null){
-        startWord ="";
-    }
+    var randomness = (getParameterByName("randomness") === 'true');
+
     $(document).keydown(function (evt) {
         if (evt.keyCode == 38||evt.keyCode == 39) {
             flipCard();
@@ -40,38 +34,33 @@ $(document).ready(function() {
     var onSuccess = function(data) {
         lines = jQuery.csv()(data);
         var newLines = new Array();
-        var startFiltering = (startWord == "");
         if (startString != null) {
             function getSubsetOfWordsWith(substring, lines) {
-                var j=0;
+                var j = 0;
                 for (i = 0; i < lines.length; i++) {
                     if (lines[i][0].substring(0, substring.length) === substring) {
-                        if(lines[i][0] == startWord){
-                            startFiltering = true;
-                        }
-                        if(startFiltering){
-                            newLines[j] = lines[i];
-                            j++;
-                        }
+                        newLines[j] = lines[i];
+                        j++;
                     }
                 }
                 return newLines;
             }
-            lines = getSubsetOfWordsWith(startString, lines);
         }
+        lines = getSubsetOfWordsWith(startString, lines);
     }
+
     $.get("data/data.csv", onSuccess);
     var wordCol = 0;
     var meaningCol = 1;
 
     var sentenceCol = 2;
 //    var antonymCol = 3;
-    var currentLine = 1;
+    var currentLine = -1;
     var currentLinePosition=-1;
     var alreadyShownLines = new Array();
 
     var getNextContent= function(){
-        if(lines[currentLine][wordCol]==$('#card').text()){
+        if(currentLine != -1 && lines[currentLine][wordCol]==$('#card').text()){
             var line = lines[currentLine];
             return '<div class="word">'+lines[currentLine][wordCol]+"</div><div>Meaning: "+line[meaningCol]+"</div><div>Sentence: "+line[sentenceCol]+"</div>";//+ "<div>Antonyms: "+line[antonymCol];
         }

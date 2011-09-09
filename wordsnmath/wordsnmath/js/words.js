@@ -32,6 +32,7 @@ $(document).ready(function() {
 	$('#search').keyup(function(){
 		var text = $(this).val();
 		filterWordsBy(text);
-        $('#modeSwitcher').attr('href',"index.html?startString=" +text);
+        $('#random').attr('href',"index.html?randomness=true&startString=" +text);
+        $('#sequential').attr('href',"index.html?randomness=false&startString=" +text);
 	});
 });
