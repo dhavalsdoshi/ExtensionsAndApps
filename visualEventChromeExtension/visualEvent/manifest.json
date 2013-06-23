@@ -7,7 +7,7 @@
         "scripts": ["init.js"]
     },
     "permissions": [
-        "tabs", "http://*/*"
+        "contextMenus","tabs", "http://*/*"
     ],
     "icons": {
         "16": "icon16.png",
