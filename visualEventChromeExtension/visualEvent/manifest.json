@@ -17,5 +17,13 @@
     "browser_action": {
         "default_title": "Click to see the javascript events attached on this page",
         "default_icon": "icon48.png"
+    },
+    "commands": {
+        "start-visual-event": {
+            "suggested_key": {
+                "default": "Alt+Shift+E"
+            },
+            "description": "Start Visual Event"
+        }
     }
 }
