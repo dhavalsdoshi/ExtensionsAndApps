@@ -2,7 +2,7 @@
     "name": "Visual Event",
     "version": "2.1",
     "manifest_version": 2,
-    "description": "Know what event is bounded on each dom element",
+    "description": "Know what event is bound on each dom element",
     "background": {
         "scripts": ["init.js"]
     },
