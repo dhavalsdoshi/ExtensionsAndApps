@@ -1,8 +1,8 @@
 {
-  "name": "visualeventfirefoxaddon",
-  "title": "visualEventFirefoxAddOn",
+  "name": "visual-event",
+  "title": "Visual Event",
   "id": "jid1-Cdq0UJnJqkvGtQ",
-  "description": "a basic add-on",
+  "description": "Know what event is bound on each dom element",
   "author": "",
   "license": "MPL 2.0",
   "version": "0.1"
